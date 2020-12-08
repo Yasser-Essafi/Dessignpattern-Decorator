@@ -1,0 +1,171 @@
+public abstract class BoissoncafeComponent
+ 
+{
+    protected string h_nom;
+    public virtual string GetName()
+    {
+       return h_nom;
+    }
+ 
+    protected double h_prix;
+    public virtual double GetPrice()
+    {
+       return h_prix;
+    }
+}
+class ESPRESSO : BoissoncafeComponent
+{
+   public ESPRESSO()
+   {
+       h_nom = "ESPRESSO";
+       h_prix = 8.0;
+   }
+} 
+ 
+class CAPPUCCINO : BoissoncafeComponent
+{
+    public CAPPUCCINO()
+    {
+       h_nom = "CAPPUCCINO";
+       h_prix =9.5;
+    }
+}
+ 
+class MOKACCINO : BoissoncafeComponent
+{
+   public MOKACCINO()
+   {
+       h_nom = "MOKACCINO";
+       h_prix = 11.5;
+   }
+}
+
+class CafeAMeRICAIN : BoissoncafeComponent
+{
+   public CafeAMeRICAIN()
+   {
+       h_nom = "CafeAMeRICAIN";
+       h_prix = 13.0;
+   }
+}
+
+
+public abstract class Decorator : BoissoncafeComponent
+{
+   BoissoncafeComponent h_BaseComponent = null;
+ 
+   protected string h_Nom = "Decorateur indéfini";
+   protected double h_prix = 0.0;
+ 
+   protected Decorator(BoissoncafeComponent cafe)
+   {
+      h_BaseComponent = cafe;
+   }
+ 
+#region membres
+ 
+   public override string GetName()
+   {
+      return string.Format("{0}, {1}", h_BaseComponent.GetName(), h_Nom);
+   }
+ 
+   public override double GetPrice()
+   {
+      return h_prix + h_BaseComponent.GetPrice();
+   }
+#endregion
+}
+
+
+class laitDecorator : Decorator
+{
+   public laitDecorator(BoissoncafeComponent cafeaveclait)
+: base(cafeaveclait)
+   {
+      this.h_Nom = "Avec lait";
+      this.h_prix = 3.0;
+   }
+}
+ 
+class ChocolatDecorator : Decorator
+{
+    public ChocolatDecorator(BoissoncafeComponent cafeavecchocolat)
+: base(cafeavecchocolat)
+   {
+      this.h_Nom = "Avec chocolat";
+      this.h_prix = 4.0;
+   }
+}
+
+class CaramelDecorator : Decorator
+{
+   public CaramelDecorator(BoissoncafeComponent cafeaveccaramel)
+: base(cafeaveccaramel)
+   {
+      this.h_Nom = "Avec caramel";
+      this.h_prix = 5.0;
+   }
+}
+class Program
+{
+   static void Main(string[] args)
+{
+   ESPRESSO esp = new ESPRESSO();
+   PrintcafeDetails(esp);
+ 
+   CAPPUCCINO cap = new CAPPUCCINO();
+   PrintcafeDetails(cap);
+
+   MOKACCINO mac = new MOKACCINO();
+   PrintcafeDetails(mac);
+ 
+   CafeAMeRICAIN amc = CafeAMeRICAIN();
+   PrintcafeDetails(amc);
+ 
+   laitDecorator cafelait = new laitDecorator(esp);
+   PrintcafeDetails(cafelait);
+
+   laitDecorator cafelait = new laitDecorator(cap);
+   PrintcafeDetails(cafelait);
+
+   laitDecorator cafelait = new laitDecorator(mac);
+   PrintcafeDetails(cafelait);
+
+   laitDecorator cafelait = new laitDecorator(amc);
+   PrintcafeDetails(cafelait);
+
+###
+
+   ChocolatDecorator cafechocolat = new ChocolatDecorator(esp);
+   PrintcafeDetails(cafechocolat);
+
+   ChocolatDecorator cafechocolat = new ChocolatDecorator(cap);
+   PrintcafeDetails(cafechocolat);
+
+   ChocolatDecorator cafechocolat = new ChocolatDecorator(mac);
+   PrintcafeDetails(cafechocolat);
+
+   ChocolatDecorator cafechocolat = new ChocolatDecorator(amc);
+   PrintcafeDetails(cafechocolat);
+
+ ###
+
+   CaramelDecorator cafecaramel = new CaramelDecorator(esp);
+   PrintcafeDetails(cafecaramel);
+
+   CaramelDecorator cafecaramel = new CaramelDecorator(cap);
+   PrintcafeDetails(cafecaramel);
+
+   CaramelDecorator cafecaramel = new CaramelDecorator(mac);
+   PrintcafeDetails(cafecaramel);
+
+   CaramelDecorator cafecaramel = new CaramelDecorator(amc);
+   PrintcafeDetails(cafecaramel);
+ 
+}
+   private static void PrintcafeDetails(BoissoncafeComponent cafe)
+   {
+      Console.WriteLine();
+      Console.WriteLine("Cafe: {0}, Prix: {1}", cafe.GetName(), cafe.GetPrice());
+   }
+}
