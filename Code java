@@ -1,48 +1,48 @@
-public abstract class BoissoncafeComponent
+public abstract class BoissonCafeComponent
  
 {
     protected string h_nom;
-    public virtual string GetName()
+    public virtual string getName()
     {
        return h_nom;
     }
  
     protected double h_prix;
-    public virtual double GetPrice()
+    public virtual double getPrice()
     {
        return h_prix;
     }
 }
-class ESPRESSO : BoissoncafeComponent
+class Espresso : BoissonCafeComponent
 {
-   public ESPRESSO()
+   public Espresso()
    {
        h_nom = "ESPRESSO";
        h_prix = 8.0;
    }
 } 
  
-class CAPPUCCINO : BoissoncafeComponent
+class Cappuccino : BoissonCafeComponent
 {
-    public CAPPUCCINO()
+    public Cappuccino()
     {
        h_nom = "CAPPUCCINO";
        h_prix =9.5;
     }
 }
  
-class MOKACCINO : BoissoncafeComponent
+class Mokaccino : BoissonCafeComponent
 {
-   public MOKACCINO()
+   public Mokaccino()
    {
        h_nom = "MOKACCINO";
        h_prix = 11.5;
    }
 }
 
-class CafeAMeRICAIN : BoissoncafeComponent
+class CafeAmericain : BoissonCafeComponent
 {
-   public CafeAMeRICAIN()
+   public CafeAmericain()
    {
        h_nom = "CafeAMeRICAIN";
        h_prix = 13.0;
@@ -50,14 +50,14 @@ class CafeAMeRICAIN : BoissoncafeComponent
 }
 
 
-public abstract class Decorator : BoissoncafeComponent
+public abstract class Decorator : BoissonCafeComponent
 {
-   BoissoncafeComponent h_BaseComponent = null;
+   BoissonCafeComponent h_BaseComponent = null;
  
    protected string h_Nom = "Decorateur indéfini";
    protected double h_prix = 0.0;
  
-   protected Decorator(BoissoncafeComponent cafe)
+   protected Decorator(BoissonCafeComponent cafe)
    {
       h_BaseComponent = cafe;
    }
@@ -77,9 +77,9 @@ public abstract class Decorator : BoissoncafeComponent
 }
 
 
-class laitDecorator : Decorator
+class LaitDecorator : Decorator
 {
-   public laitDecorator(BoissoncafeComponent cafeaveclait)
+   public LaitDecorator(BoissonCafeComponent cafeaveclait)
 : base(cafeaveclait)
    {
       this.h_Nom = "Avec lait";
@@ -89,7 +89,7 @@ class laitDecorator : Decorator
  
 class ChocolatDecorator : Decorator
 {
-    public ChocolatDecorator(BoissoncafeComponent cafeavecchocolat)
+    public ChocolatDecorator(BoissonCafeComponent cafeavecchocolat)
 : base(cafeavecchocolat)
    {
       this.h_Nom = "Avec chocolat";
@@ -99,7 +99,7 @@ class ChocolatDecorator : Decorator
 
 class CaramelDecorator : Decorator
 {
-   public CaramelDecorator(BoissoncafeComponent cafeaveccaramel)
+   public CaramelDecorator(BoissonCafeComponent cafeaveccaramel)
 : base(cafeaveccaramel)
    {
       this.h_Nom = "Avec caramel";
@@ -110,60 +110,60 @@ class Program
 {
    static void Main(string[] args)
 {
-   ESPRESSO esp = new ESPRESSO();
-   PrintcafeDetails(esp);
+   Espresso esp = new Espresso();
+   PrintCafeDetails(esp);
  
-   CAPPUCCINO cap = new CAPPUCCINO();
-   PrintcafeDetails(cap);
+   Cappuccino cap = new Cappuccino();
+   PrintCafeDetails(cap);
 
-   MOKACCINO mac = new MOKACCINO();
-   PrintcafeDetails(mac);
+   Mokaccino mac = new Mokaccino();
+   PrintCafeDetails(mac);
  
-   CafeAMeRICAIN amc = CafeAMeRICAIN();
-   PrintcafeDetails(amc);
+   CafeAmericain amc = CafeAmericain();
+   PrintCafeDetails(amc);
  
-   laitDecorator cafelait = new laitDecorator(esp);
-   PrintcafeDetails(cafelait);
+   LaitDecorator cafelait = new LaitDecorator(esp);
+   PrintCafeDetails(cafelait);
 
-   laitDecorator cafelait = new laitDecorator(cap);
-   PrintcafeDetails(cafelait);
+   LaitDecorator cafelait = new LaitDecorator(cap);
+   PrintCafeDetails(cafelait);
 
-   laitDecorator cafelait = new laitDecorator(mac);
-   PrintcafeDetails(cafelait);
+   LaitDecorator cafelait = new LaitDecorator(mac);
+   PrintCafeDetails(cafelait);
 
-   laitDecorator cafelait = new laitDecorator(amc);
-   PrintcafeDetails(cafelait);
+   LaitDecorator cafelait = new LaitDecorator(amc);
+   PrintCafeDetails(cafelait);
 
 ###
 
    ChocolatDecorator cafechocolat = new ChocolatDecorator(esp);
-   PrintcafeDetails(cafechocolat);
+   PrintCafeDetails(cafechocolat);
 
    ChocolatDecorator cafechocolat = new ChocolatDecorator(cap);
-   PrintcafeDetails(cafechocolat);
+   PrintCafeDetails(cafechocolat);
 
    ChocolatDecorator cafechocolat = new ChocolatDecorator(mac);
-   PrintcafeDetails(cafechocolat);
+   PrintCafeDetails(cafechocolat);
 
    ChocolatDecorator cafechocolat = new ChocolatDecorator(amc);
-   PrintcafeDetails(cafechocolat);
+   PrintCafeDetails(cafechocolat);
 
  ###
 
    CaramelDecorator cafecaramel = new CaramelDecorator(esp);
-   PrintcafeDetails(cafecaramel);
+   PrintCafeDetails(cafecaramel);
 
    CaramelDecorator cafecaramel = new CaramelDecorator(cap);
-   PrintcafeDetails(cafecaramel);
+   PrintCafeDetails(cafecaramel);
 
    CaramelDecorator cafecaramel = new CaramelDecorator(mac);
-   PrintcafeDetails(cafecaramel);
+   PrintCafeDetails(cafecaramel);
 
    CaramelDecorator cafecaramel = new CaramelDecorator(amc);
-   PrintcafeDetails(cafecaramel);
+   PrintCafeDetails(cafecaramel);
  
 }
-   private static void PrintcafeDetails(BoissoncafeComponent cafe)
+   private static void PrintCafeDetails(BoissonCafeComponent cafe)
    {
       Console.WriteLine();
       Console.WriteLine("Cafe: {0}, Prix: {1}", cafe.GetName(), cafe.GetPrice());
